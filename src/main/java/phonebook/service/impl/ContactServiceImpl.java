@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ContactServiceImpl extends Contact implements ContactService {
+public class ContactServiceImpl  implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
