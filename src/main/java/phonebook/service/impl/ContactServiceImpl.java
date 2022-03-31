@@ -7,7 +7,6 @@ import phonebook.domain.Contact;
 import phonebook.service.ContactService;
 import phonebook.validator.ContactValidator;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;

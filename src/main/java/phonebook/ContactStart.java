@@ -35,8 +35,10 @@ public class ContactStart {
                     }
                 }
                 case "2" -> {
-                    System.out.println("pass 1 for delete contact by name and phoneNumber \n" +
-                            "or pass 2 for delete contact by Id");
+                    System.out.println("""
+                            pass 1 for delete contact by name and phoneNumber\s
+                            pass 2 for delete contact by Id
+                            pass other for return main menu""");
                     select = scanner.next();
                     switch (select) {
                         case "1" -> {
@@ -60,8 +62,10 @@ public class ContactStart {
                     }
                 }
                 case "4" -> {
-                    System.out.println("pass 1 for search by phone number \n" +
-                            "pass 2 for search by name");
+                    System.out.println("""
+                            pass 1 for search by phone number\s
+                            pass 2 for search by name
+                            pass other for return main menu""");
                     String selectSearch = scanner.next();
                     switch (selectSearch) {
                         case "1" -> {
