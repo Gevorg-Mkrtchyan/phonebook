@@ -5,13 +5,14 @@ import phonebook.contactEnumType.PhoneBookType;
 import phonebook.domain.Address;
 import phonebook.domain.Contact;
 import phonebook.service.ContactService;
+import phonebook.validator.ContactValidator;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 
-public class ContactServiceImpl  implements ContactService {
+public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
 
     @Override
@@ -48,7 +49,16 @@ public class ContactServiceImpl  implements ContactService {
 
     @Override
     public Contact getContact(Contact contact, Set<Contact> contacts) {
-        return null;
+        Contact result = null;
+        if (contacts != null && contact != null) {
+            for (Contact cont : contacts) {
+                if (cont.getFirstName().equals(contact.getFirstName()) && cont.getLastName().
+                        equals(contact.getLastName()) && cont.getPhoneNumber().equals(contact.getPhoneNumber())) {
+                    result = cont;
+                }
+            }
+        }
+        return result;
     }
 
     @Override
@@ -63,12 +73,37 @@ public class ContactServiceImpl  implements ContactService {
 
     @Override
     public boolean delete(Set<Contact> contacts) {
-        return false;
+        if (contacts != null) {
+            Contact cont = new Contact();
+            System.out.println("For deleting contact please enter");
+            System.out.println("Please enter the first name");
+            cont.setFirstName(scanner.next());
+            System.out.println("Please enter the last name");
+            cont.setLastName(scanner.next());
+            System.out.println("Please enter the phone number (+374(code)*******)");
+            cont.setPhoneNumber(scanner.next());
+            contacts.remove(getContact(cont, contacts));
+        }
+        return true;
     }
 
     @Override
     public Contact editeContact(Set<Contact> contacts) {
-        return null;
+        Contact edit = null;
+        if (contacts != null) {
+            Contact contact = new Contact();
+            System.out.println("please enter editing contact");
+            System.out.println("Please enter contact's  first name");
+            contact.setFirstName(scanner.next());
+            System.out.println("Please enter contact's last name");
+            contact.setLastName(scanner.next());
+            System.out.println("Please enter  contact's phone number");
+            contact.setPhoneNumber(scanner.next());
+            Contact newContact = crateContact();
+            Contact contactEdit = getContact(contact, contacts);
+            edit = updatedContactToContact(newContact, contactEdit);
+        }
+        return edit;
     }
 
     @Override
@@ -83,35 +118,65 @@ public class ContactServiceImpl  implements ContactService {
 
     @Override
     public boolean deleteContactById(Set<Contact> contacts) {
+        if (contacts != null) {
+            System.out.println("please enter Id for deleting contact");
+            int contactId = scanner.nextInt();
+            for (Contact cont : contacts) {
+                if (cont.getId() == contactId) {
+                    contacts.remove(cont);
+                    System.out.println("Contact is deleted");
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     private static Contact updatedContactToContact(Contact source, Contact destination) {
-        return null;
+        destination.setFirstName(source.getFirstName());
+        destination.setLastName(source.getLastName());
+        destination.setPhoneNumber(source.getPhoneNumber());
+        destination.setEmail(source.getEmail());
+        destination.setPhoneNumberType(source.getPhoneNumberType());
+        destination.setEmailType(source.getEmailType());
+        destination.setAddress(source.getAddress());
+        return destination;
     }
 
     public static Contact crateContact() {
-        ArrayList<String> cont = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
+        String select = "+";
         System.out.println("please enter fist name, name mast be range in 3 - 15 symbols");
-        contact.setFirstName(scanner.next());
-        System.out.println("please enter last name, name mast be range in 6 - 20 symbols");
-        contact.setLastName(scanner.next());
-        System.out.println("please enter email ex qwerty@gmail.com");
-        contact.setEmail(scanner.next());
-        System.out.println("please enter contact type in email (1 for gmail,2 for mail,3 for yahoo, 4 for yandex)");
-        int emailType = scanner.nextInt();
-        switch (emailType) {
-            case 1 -> contact.setEmailType(EmailType.GMAIL.getName());
-            case 2 -> contact.setEmailType(EmailType.MAIL.getName());
-            case 3 -> contact.setEmailType(EmailType.YAHOO.getName());
-            case 4 -> contact.setEmailType(EmailType.YANDEX.getName());
-            default -> System.out.println("other email type");
+        while (true) {
+            contact.setFirstName(scanner.next());
+            if (ContactValidator.isValidFirstName(contact.getFirstName())) {
+                break;
+            } else {
+                System.out.println("no valid firstName try again");
+            }
         }
-        System.out.println("please enter phone number (+374 ******)");
-        contact.setPhoneNumber(scanner.next());
-        System.out.println("please enter contact type in phone book (1 for Work,2 for Mobile,3 for Home,4 for School");
+        System.out.println("please enter last name, name mast be range in 6 - 20 symbols");
+        while (true) {
+            contact.setLastName(scanner.next());
+            if (ContactValidator.isValidLastName(contact.getLastName())) {
+                break;
+            } else {
+                System.out.println("no valid lastName try again");
+            }
+        }
+        System.out.println("please enter phone number mast be range in 6 - 25 numbers ex (+374 ******)");
+        while (true){
+            contact.setPhoneNumber(scanner.next());
+            if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())){
+                break;
+            }
+            else {
+                System.out.println("no valid phone number");
+            }
+        }
+        System.out.println("please enter contact type in phone book " +
+                "\n(1 for Work, 2 for Mobile, 3 for Home, 4 for School)");
         int phoneNumberType = scanner.nextInt();
         switch (phoneNumberType) {
             case 1 -> contact.setPhoneNumberType(PhoneBookType.Work.getName());
@@ -120,23 +185,44 @@ public class ContactServiceImpl  implements ContactService {
             case 4 -> contact.setPhoneNumberType(PhoneBookType.School.getName());
             default -> System.out.println("other phone type");
         }
-        Address address = new Address();
-        System.out.println("please enter Country");
-        address.setCountry(scanner.next());
-        System.out.println("please enter city");
-        address.setCity(scanner.next());
-        System.out.println("please enter street");
-        address.setStreet(scanner.next());
-        System.out.println("please enter building");
-        address.setBuilding(scanner.next());
-        System.out.println("please enter apartment");
-        address.setApartment(scanner.next());
-        contact.setAddress(address);
-
+        System.out.println("Do you want to add an email? \n if yes = '+'  if no = other ");
+        String selectEmail = scanner.next();
+        if (selectEmail.equals(select)) {
+            System.out.println("please enter email ex qwerty@gmail.com");
+            contact.setEmail(scanner.next());
+            System.out.println("please enter contact type in email " +
+                    "\n(1 for gmail,2 for mail,3 for yahoo, 4 for yandex)");
+            int emailType = scanner.nextInt();
+            switch (emailType) {
+                case 1 -> contact.setEmailType(EmailType.GMAIL.getName());
+                case 2 -> contact.setEmailType(EmailType.MAIL.getName());
+                case 3 -> contact.setEmailType(EmailType.YAHOO.getName());
+                case 4 -> contact.setEmailType(EmailType.YANDEX.getName());
+                default -> System.out.println("other email type");
+            }
+        }
+        System.out.println("Do you want to add an address? \n if yes = '+'  if no = other");
+        String addAddress = scanner.next();
+        if (addAddress.equals(select)) {
+            Address address = new Address();
+            System.out.println("please enter Country");
+            address.setCountry(scanner.next());
+            System.out.println("please enter city");
+            address.setCity(scanner.next());
+            System.out.println("please enter street");
+            address.setStreet(scanner.next());
+            System.out.println("please enter building");
+            address.setBuilding(scanner.next());
+            System.out.println("please enter apartment");
+            address.setApartment(scanner.next());
+            contact.setAddress(address);
+        }
         return contact;
     }
 
     public static void SystemExit() {
+        System.out.println("phone book is closed");
+        System.out.println("don't run again");
         System.exit(0);
     }
 }

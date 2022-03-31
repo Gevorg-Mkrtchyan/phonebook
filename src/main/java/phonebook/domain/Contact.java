@@ -82,7 +82,7 @@ public class Contact implements Comparator<Contact> {
     }
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = "+374 " + phoneNumber;
+        this.phoneNumber = phoneNumber;
     }
 
     public String getPhoneNumberType() {
@@ -115,10 +115,10 @@ public class Contact implements Comparator<Contact> {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", phoneNumberType='" + phoneNumberType + '\'' +
                 ", email='" + email + '\'' +
                 ", emailType='" + emailType + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", contactType='" + phoneNumberType + '\'' +
                 ", address=" + address +
                 '}';
     }
