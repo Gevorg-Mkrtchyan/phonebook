@@ -224,7 +224,8 @@ public class ContactServiceImpl implements ContactService {
 
     public static void SystemExit() {
         System.out.println("phone book is closed");
-        System.out.println("don't run again");
+        System.out.println("Thank you for using our phonebook");
+        System.out.println("don't run again ☺");
         System.exit(0);
     }
 }
