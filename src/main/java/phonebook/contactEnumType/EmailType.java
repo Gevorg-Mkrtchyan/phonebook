@@ -4,10 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EmailType {
-    GMAIL(1, "gmail.com "),
-    MAIL(2, "mail.ru"),
-    YAHOO(3, "yahoo.com"),
-    YANDEX(4, "yandex.ru");
+    GMAIL(1, "@gmail.com"),
+    MAIL(2, "@mail.ru"),
+    YAHOO(3, "@yahoo.com"),
+    YANDEX(4, "@yandex.ru");
 
     private static final Map<Integer, EmailType> emailType = new HashMap<>();
     private final int code;

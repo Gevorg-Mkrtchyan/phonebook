@@ -43,5 +43,76 @@ public final class ContactValidator {
         }
         return len >= 6 && len <= 25;
     }
+
+    public static boolean isValidEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+        int len = email.length();
+        return len >= 6;
+    }
+
+    public static boolean isValidCountry(String country) {
+        if (country == null || country.length() == 0) {
+            return false;
+        }
+        int len = country.length();
+        for (int i = 0; i < len; i++) {
+            if (country.charAt(i) < 65 || country.charAt(i) > 122) {
+                return false;
+            }
+        }
+        return len >= 3 && len <= 20;
+    }
+
+    public static boolean isValidCity(String city) {
+        if (city == null || city.length() == 0) {
+            return false;
+        }
+        int len = city.length();
+        for (int i = 0; i < len; i++) {
+            if (city.charAt(i) < 65 || city.charAt(i) > 122) {
+                return false;
+            }
+        }
+        return len >= 3 && len <= 20;
+    }
+
+    public static boolean isValidStreet(String street) {
+        if (street == null) {
+            return false;
+        }
+        int len = street.length();
+        return len >= 6 && len <= 23;
+    }
+
+    public static boolean isValidBuilding(String building) {
+        if (building == null) {
+            return false;
+        }
+        int len = building.length();
+        for (int i = 0; i < len; i++) {
+            if (building.charAt(i) < '1' || building.charAt(i) > '9') {
+                return false;
+            }
+        }
+        return len >= 1 && len <= 3;
+    }
+
+    public static boolean isValidApartment(String apartment) {
+        if (apartment == null) {
+            return false;
+        }
+        int len = apartment.length();
+        for (int i = 0; i < len; i++) {
+            if (apartment.charAt(i) < '1' || apartment.charAt(i) > '9') {
+                return false;
+            }
+        }
+        return len >= 1 && len <= 3;
+    }
 }
+
+
+
 

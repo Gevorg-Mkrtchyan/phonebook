@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum PhoneBookType {
-    Work(1, "Work "),
+    Work(1, "Work"),
     Mobile(2, "Mobile"),
     Home(3, "Home"),
     School(4, "School");

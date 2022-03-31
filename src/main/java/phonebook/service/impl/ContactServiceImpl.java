@@ -189,8 +189,15 @@ public class ContactServiceImpl implements ContactService {
                  if yes = '+'  if no = other""");
         String selectEmail = scanner.next();
         if (selectEmail.equals(select)) {
-            System.out.println("please enter email ex qwerty@gmail.com");
-            contact.setEmail(scanner.next());
+            System.out.println("please enter email, email range >= 6  ex qwerty@gmail.com");
+            while (true) {
+                contact.setEmail(scanner.next());
+                if (ContactValidator.isValidEmail(contact.getEmail())) {
+                    break;
+                } else {
+                    System.out.println("no valid email try again");
+                }
+            }
             System.out.println("""
                     please enter contact type in email\s
                     (1 for gmail,2 for mail,3 for yahoo, 4 for yandex)""");
@@ -207,16 +214,57 @@ public class ContactServiceImpl implements ContactService {
         String addAddress = scanner.next();
         if (addAddress.equals(select)) {
             Address address = new Address();
-            System.out.println("please enter Country");
-            address.setCountry(scanner.next());
-            System.out.println("please enter city");
-            address.setCity(scanner.next());
-            System.out.println("please enter street");
-            address.setStreet(scanner.next());
-            System.out.println("please enter building");
-            address.setBuilding(scanner.next());
-            System.out.println("please enter apartment");
-            address.setApartment(scanner.next());
+            System.out.println("please enter Country, range is 3 to 20");
+            while (true){
+                address.setCountry(scanner.next());
+                if (ContactValidator.isValidCountry(address.getCountry())) {
+                    break;
+                }
+                else {
+                    System.out.println("no valid country name try again");
+                }
+            }
+            System.out.println("please enter city range is 3 to 20");
+            while (true) {
+                address.setCity(scanner.next());
+                if (ContactValidator.isValidCity(address.getCity())){
+                    break;
+                }
+                else {
+                    System.out.println("no valid city name try again");
+                }
+            }
+            System.out.println("please enter street range is 6 to 23");
+            while (true) {
+                address.setStreet(scanner.next());
+                if (ContactValidator.isValidStreet(address.getStreet())){
+                    break;
+                }
+                else {
+                    System.out.println("no valid street name try again");
+                }
+            }
+            System.out.println("please enter building range is 1 to 3 numbers");
+            while (true){
+                address.setBuilding(scanner.next());
+                if (ContactValidator.isValidBuilding(address.getBuilding())){
+                    break;
+                }
+                else {
+                    System.out.println("no valid building try again");
+                }
+            }
+            System.out.println("please enter apartment range is 1 to 3 numbers");
+            while (true){
+                address.setApartment(scanner.next());
+                if (ContactValidator.isValidApartment(address.getApartment())){
+                    break;
+                }
+                else {
+                    System.out.println("no valid apartment try again");
+                }
+
+            }
             contact.setAddress(address);
         }
         return contact;
