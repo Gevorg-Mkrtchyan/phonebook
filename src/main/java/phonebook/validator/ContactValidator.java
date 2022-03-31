@@ -24,7 +24,7 @@ public final class ContactValidator {
         }
         int len = lastName.length();
         for (int i = 0; i < len; i++) {
-            if (lastName.charAt(i) < 65 || lastName.charAt(i) > 122){
+            if (lastName.charAt(i) < 65 || lastName.charAt(i) > 122) {
                 return false;
             }
         }
@@ -41,7 +41,7 @@ public final class ContactValidator {
                 return false;
             }
         }
-        return len>=6 && len<= 25;
+        return len >= 6 && len <= 25;
     }
 }
 

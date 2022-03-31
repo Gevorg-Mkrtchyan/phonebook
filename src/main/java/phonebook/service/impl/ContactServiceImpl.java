@@ -173,8 +173,9 @@ public class ContactServiceImpl implements ContactService {
                 System.out.println("no valid phone number");
             }
         }
-        System.out.println("please enter contact type in phone book " +
-                "\n(1 for Work, 2 for Mobile, 3 for Home, 4 for School)");
+        System.out.println("""
+                please enter contact type in phone book\s
+                (1 for Work, 2 for Mobile, 3 for Home, 4 for School)""");
         int phoneNumberType = scanner.nextInt();
         switch (phoneNumberType) {
             case 1 -> contact.setPhoneNumberType(PhoneBookType.Work.getName());
@@ -183,13 +184,16 @@ public class ContactServiceImpl implements ContactService {
             case 4 -> contact.setPhoneNumberType(PhoneBookType.School.getName());
             default -> System.out.println("other phone type");
         }
-        System.out.println("Do you want to add an email? \n if yes = '+'  if no = other ");
+        System.out.println("""
+                Do you want to add an email?\s
+                 if yes = '+'  if no = other""");
         String selectEmail = scanner.next();
         if (selectEmail.equals(select)) {
             System.out.println("please enter email ex qwerty@gmail.com");
             contact.setEmail(scanner.next());
-            System.out.println("please enter contact type in email " +
-                    "\n(1 for gmail,2 for mail,3 for yahoo, 4 for yandex)");
+            System.out.println("""
+                    please enter contact type in email\s
+                    (1 for gmail,2 for mail,3 for yahoo, 4 for yandex)""");
             int emailType = scanner.nextInt();
             switch (emailType) {
                 case 1 -> contact.setEmailType(EmailType.GMAIL.getName());
