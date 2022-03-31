@@ -166,12 +166,11 @@ public class ContactServiceImpl implements ContactService {
             }
         }
         System.out.println("please enter phone number mast be range in 6 - 25 numbers ex (+374 ******)");
-        while (true){
+        while (true) {
             contact.setPhoneNumber(scanner.next());
-            if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())){
+            if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println("no valid phone number");
             }
         }
