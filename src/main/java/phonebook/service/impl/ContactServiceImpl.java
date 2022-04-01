@@ -51,8 +51,8 @@ public class ContactServiceImpl implements ContactService {
         Contact result = null;
         if (contacts != null && contact != null) {
             for (Contact cont : contacts) {
-                if (cont.getFirstName().equals(contact.getFirstName()) && cont.getLastName().
-                        equals(contact.getLastName()) && cont.getPhoneNumber().equals(contact.getPhoneNumber())) {
+                if (cont.getFirstName().equals(contact.getFirstName()) && cont.getLastName().equals(contact.getLastName())
+                        && cont.getPhoneNumber().equals(contact.getPhoneNumber())) {
                     result = cont;
                 }
             }
@@ -88,7 +88,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Contact editeContact(Set<Contact> contacts) {
-        Contact edit = null;
+        Contact edited = null;
         if (contacts != null) {
             Contact contact = new Contact();
             System.out.println("please enter editing contact");
@@ -98,11 +98,12 @@ public class ContactServiceImpl implements ContactService {
             contact.setLastName(scanner.next());
             System.out.println("Please enter  contact's phone number");
             contact.setPhoneNumber(scanner.next());
+            System.out.println("Please enter your edited contact");
             Contact newContact = crateContact();
             Contact contactEdit = getContact(contact, contacts);
-            edit = updatedContactToContact(newContact, contactEdit);
+            edited = updatedContactToContact(newContact, contactEdit);
         }
-        return edit;
+        return edited;
     }
 
     @Override
@@ -137,7 +138,6 @@ public class ContactServiceImpl implements ContactService {
         destination.setPhoneNumber(source.getPhoneNumber());
         destination.setEmail(source.getEmail());
         destination.setPhoneNumberType(source.getPhoneNumberType());
-        destination.setEmailType(source.getEmailType());
         destination.setAddress(source.getAddress());
         return destination;
     }
@@ -176,12 +176,12 @@ public class ContactServiceImpl implements ContactService {
         System.out.println("""
                 please enter contact type in phone book\s
                 (1 for Work, 2 for Mobile, 3 for Home, 4 for School)""");
-        int phoneNumberType = scanner.nextInt();
+        String phoneNumberType = scanner.next();
         switch (phoneNumberType) {
-            case 1 -> contact.setPhoneNumberType(PhoneBookType.Work.getName());
-            case 2 -> contact.setPhoneNumberType(PhoneBookType.Mobile.getName());
-            case 3 -> contact.setPhoneNumberType(PhoneBookType.Home.getName());
-            case 4 -> contact.setPhoneNumberType(PhoneBookType.School.getName());
+            case "1" -> contact.setPhoneNumberType(PhoneBookType.Work.getName());
+            case "2" -> contact.setPhoneNumberType(PhoneBookType.Mobile.getName());
+            case "3" -> contact.setPhoneNumberType(PhoneBookType.Home.getName());
+            case "4" -> contact.setPhoneNumberType(PhoneBookType.School.getName());
             default -> System.out.println("other phone type");
         }
         System.out.println("""
@@ -201,12 +201,12 @@ public class ContactServiceImpl implements ContactService {
             System.out.println("""
                     please enter contact type in email\s
                     (1 for gmail,2 for mail,3 for yahoo, 4 for yandex)""");
-            int emailType = scanner.nextInt();
+            String emailType = scanner.next();
             switch (emailType) {
-                case 1 -> contact.setEmailType(EmailType.GMAIL.getName());
-                case 2 -> contact.setEmailType(EmailType.MAIL.getName());
-                case 3 -> contact.setEmailType(EmailType.YAHOO.getName());
-                case 4 -> contact.setEmailType(EmailType.YANDEX.getName());
+                case "1" -> contact.setEmailType(EmailType.GMAIL.getName());
+                case "2" -> contact.setEmailType(EmailType.MAIL.getName());
+                case "3" -> contact.setEmailType(EmailType.YAHOO.getName());
+                case "4" -> contact.setEmailType(EmailType.YANDEX.getName());
                 default -> System.out.println("other email type");
             }
         }
@@ -215,52 +215,47 @@ public class ContactServiceImpl implements ContactService {
         if (addAddress.equals(select)) {
             Address address = new Address();
             System.out.println("please enter Country, range is 3 to 20");
-            while (true){
+            while (true) {
                 address.setCountry(scanner.next());
                 if (ContactValidator.isValidCountry(address.getCountry())) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("no valid country name try again");
                 }
             }
             System.out.println("please enter city range is 3 to 20");
             while (true) {
                 address.setCity(scanner.next());
-                if (ContactValidator.isValidCity(address.getCity())){
+                if (ContactValidator.isValidCity(address.getCity())) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("no valid city name try again");
                 }
             }
             System.out.println("please enter street range is 6 to 23");
             while (true) {
                 address.setStreet(scanner.next());
-                if (ContactValidator.isValidStreet(address.getStreet())){
+                if (ContactValidator.isValidStreet(address.getStreet())) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("no valid street name try again");
                 }
             }
             System.out.println("please enter building range is 1 to 3 numbers");
-            while (true){
+            while (true) {
                 address.setBuilding(scanner.next());
-                if (ContactValidator.isValidBuilding(address.getBuilding())){
+                if (ContactValidator.isValidBuilding(address.getBuilding())) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("no valid building try again");
                 }
             }
             System.out.println("please enter apartment range is 1 to 3 numbers");
-            while (true){
+            while (true) {
                 address.setApartment(scanner.next());
-                if (ContactValidator.isValidApartment(address.getApartment())){
+                if (ContactValidator.isValidApartment(address.getApartment())) {
                     break;
-                }
-                else {
+                } else {
                     System.out.println("no valid apartment try again");
                 }
 
@@ -272,8 +267,7 @@ public class ContactServiceImpl implements ContactService {
 
     public static void SystemExit() {
         System.out.println("phone book is closed");
-        System.out.println("Thank you for using our phonebook");
-        System.out.println("don't run again ☺");
+        System.out.println("Thank you for using our phonebook ☺");
         System.exit(0);
     }
 }

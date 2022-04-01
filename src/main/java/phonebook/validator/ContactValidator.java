@@ -51,6 +51,13 @@ public final class ContactValidator {
         int len = email.length();
         return len >= 6;
     }
+    public static boolean isValidPhoneNumberType(String type){
+        if (type == null){
+            return false;
+        }
+        int len = type.length();
+        return len==1;
+    }
 
     public static boolean isValidCountry(String country) {
         if (country == null || country.length() == 0) {
