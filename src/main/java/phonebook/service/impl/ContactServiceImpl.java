@@ -76,37 +76,34 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public boolean delete(Set<Contact> contacts) {
         if (contacts != null) {
-            Contact cont = new Contact();
-            System.out.println("For deleting contact please enter");
-            System.out.println("Please enter the first name");
-            cont.setFirstName(scanner.next());
-            System.out.println("Please enter the last name");
-            cont.setLastName(scanner.next());
-            System.out.println("Please enter the phone number (+374(code)*******)");
-            cont.setPhoneNumber(scanner.next());
-            for (Contact contact : contacts) {
-                contacts.remove(getContact(contact, contacts));
-            }
+            System.out.println("Please enter firstName");
+            String firstName = scanner.next();
+            System.out.println("Please enter lastName");
+            String lastName = scanner.next();
+            contacts.removeIf(contact -> contact.getFirstName().equals(firstName)
+                    && contact.getLastName().equals(lastName));
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
     public Contact editeContact(Set<Contact> contacts) {
-        if (contacts != null) {
-            System.out.println("please enter Id for editing contact");
-            int contId = scanner.nextInt();
-            for (Contact cont : contacts) {
-                if (cont.getId() == contId) {
-                    System.out.println("please enter new contact ");
-                    cont = createContact();
-                    contacts.add(cont);
-                    contacts.remove(contact);
-                    cont = contact;
+        Contact edited = null;
+            if (contacts != null) {
+                System.out.println("please enter Id for editing contact");
+                int contId = scanner.nextInt();
+                for (Contact cont : contacts) {
+                    if (cont.getId() == contId) {
+                        System.out.println("please enter new contact");
+                        Contact newContacts = createContact();
+                        Contact contactEdit = getContact(contact, contacts);
+                        edited = updatedContactToContact(newContacts, contactEdit);
+                    }
                 }
             }
-        }
-        return contact;
+        return edited;
+
     }
 
     @Override
@@ -121,18 +118,21 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public boolean deleteContactById(Set<Contact> contacts) {
-        if (contacts != null) {
-            System.out.println("please enter Id for deleting contact");
-            int contactId = scanner.nextInt();
-            for (Contact cont : contacts) {
-                if (cont.getId() == contactId) {
-                    contacts.remove(cont);
-                    System.out.println("Contact is deleted");
-                    return true;
-                }
+            if (contacts != null) {
+                System.out.println("please enter Id for deleting contact");
+                int contactId = scanner.nextInt();
+                contacts.removeIf(contact -> contact.getId() == contactId);
+                System.out.println("Contact is deleted");
+                return true;
             }
-        }
         return false;
+    }
+
+    private static Contact updatedContactToContact(Contact source, Contact destination) {
+        destination.setFirstName(source.getFirstName());
+        destination.setLastName(source.getLastName());
+        destination.setPhoneNumber(source.getPhoneNumber());
+        return destination;
     }
 
     public static Contact createContact() {
