@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 public class Contact implements Comparator<Contact> {
-    private final int id;
+    private  int id;
     private String firstName;
     private String lastName;
     private String email;
@@ -18,7 +18,13 @@ public class Contact implements Comparator<Contact> {
         this.id = count++;
     }
 
-    public Contact(int id, String firstName, String lastName, String email, String phoneNumber, String phoneNumberType) {
+    public Contact(int id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public Contact(String firstName, String lastName, String email, String phoneNumber, String phoneNumberType) {
         this.id = count++;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -27,7 +33,7 @@ public class Contact implements Comparator<Contact> {
         this.phoneNumberType = phoneNumberType;
     }
 
-    public Contact(int id, String firstName, String lastName, String email, String emailType,
+    public Contact(String firstName, String lastName, String email, String emailType,
                    String phoneNumber, String phoneNumberType, Address address) {
         this.id = count++;
         this.firstName = firstName;
@@ -37,6 +43,10 @@ public class Contact implements Comparator<Contact> {
         this.phoneNumber = phoneNumber;
         this.phoneNumberType = phoneNumberType;
         this.address = address;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

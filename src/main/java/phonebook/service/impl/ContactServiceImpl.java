@@ -13,6 +13,9 @@ import java.util.Set;
 
 public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
+    Set<Contact> contacts = new HashSet<>();
+    Contact contact = new Contact();
+
 
     @Override
     public Set<Contact> getByNameAndLastName(Set<Contact> contacts) {
@@ -63,7 +66,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public boolean addContact(Set<Contact> contacts) {
         if (contacts != null) {
-            final Contact contact = crateContact();
+            contact = createContact();
             contacts.add(contact);
             return true;
         }
@@ -81,29 +84,29 @@ public class ContactServiceImpl implements ContactService {
             cont.setLastName(scanner.next());
             System.out.println("Please enter the phone number (+374(code)*******)");
             cont.setPhoneNumber(scanner.next());
-            contacts.remove(getContact(cont, contacts));
+            for (Contact contact : contacts) {
+                contacts.remove(getContact(contact, contacts));
+            }
         }
         return true;
     }
 
     @Override
     public Contact editeContact(Set<Contact> contacts) {
-        Contact edited = null;
         if (contacts != null) {
-            Contact contact = new Contact();
-            System.out.println("please enter editing contact");
-            System.out.println("Please enter contact's  first name");
-            contact.setFirstName(scanner.next());
-            System.out.println("Please enter contact's last name");
-            contact.setLastName(scanner.next());
-            System.out.println("Please enter  contact's phone number");
-            contact.setPhoneNumber(scanner.next());
-            System.out.println("Please enter your edited contact");
-            Contact newContact = crateContact();
-            Contact contactEdit = getContact(contact, contacts);
-            edited = updatedContactToContact(newContact, contactEdit);
+            System.out.println("please enter Id for editing contact");
+            int contId = scanner.nextInt();
+            for (Contact cont : contacts) {
+                if (cont.getId() == contId) {
+                    System.out.println("please enter new contact ");
+                    cont = createContact();
+                    contacts.add(cont);
+                    contacts.remove(contact);
+                    cont = contact;
+                }
+            }
         }
-        return edited;
+        return contact;
     }
 
     @Override
@@ -132,17 +135,7 @@ public class ContactServiceImpl implements ContactService {
         return false;
     }
 
-    private static Contact updatedContactToContact(Contact source, Contact destination) {
-        destination.setFirstName(source.getFirstName());
-        destination.setLastName(source.getLastName());
-        destination.setPhoneNumber(source.getPhoneNumber());
-        destination.setEmail(source.getEmail());
-        destination.setPhoneNumberType(source.getPhoneNumberType());
-        destination.setAddress(source.getAddress());
-        return destination;
-    }
-
-    public static Contact crateContact() {
+    public static Contact createContact() {
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
         String select = "+";
