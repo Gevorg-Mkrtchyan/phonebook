@@ -1,10 +1,9 @@
 package phonebook.domain;
 
-import java.util.Comparator;
 import java.util.Objects;
 
-public class Contact implements Comparator<Contact> {
-    private  int id;
+public class Contact implements Comparable<Contact> {
+
     private String firstName;
     private String lastName;
     private String email;
@@ -12,30 +11,14 @@ public class Contact implements Comparator<Contact> {
     private String phoneNumber;
     private String phoneNumberType;
     private Address address;
-    private static int count;
+
 
     public Contact() {
-        this.id = count++;
-    }
 
-    public Contact(int id, String firstName, String lastName) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Contact(String firstName, String lastName, String email, String phoneNumber, String phoneNumberType) {
-        this.id = count++;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.phoneNumberType = phoneNumberType;
     }
 
     public Contact(String firstName, String lastName, String email, String emailType,
                    String phoneNumber, String phoneNumberType, Address address) {
-        this.id = count++;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,21 +28,12 @@ public class Contact implements Comparator<Contact> {
         this.address = address;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-
     }
 
     public String getLastName() {
@@ -68,7 +42,6 @@ public class Contact implements Comparator<Contact> {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-
     }
 
     public String getEmail() {
@@ -111,31 +84,27 @@ public class Contact implements Comparator<Contact> {
         this.address = address;
     }
 
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        Contact.count = count;
-    }
 
     @Override
     public String toString() {
-        return "Contact{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", phoneNumberType='" + phoneNumberType + '\'' +
-                ", email='" + email + '\'' +
-                ", emailType='" + emailType + '\'' +
-                ", address=" + address +
-                '}';
-    }
-
-    @Override
-    public int compare(Contact o1, Contact o2) {
-        return o1.firstName.compareTo(o2.firstName);
+        if (getEmail() == null) {
+            return "Contact{" +
+                    "firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumberType='" + phoneNumberType +
+                    '}';
+        } else {
+            return "Contact{" +
+                    "firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumberType='" + phoneNumberType + '\'' +
+                    ", email='" + email + '\'' +
+                    ", emailType='" + emailType + '\'' +
+                    ", address=" + address +
+                    '}';
+        }
     }
 
     @Override
@@ -143,7 +112,7 @@ public class Contact implements Comparator<Contact> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Contact contact = (Contact) o;
-        return id == contact.id && Objects.equals(firstName, contact.firstName) &&
+        return Objects.equals(firstName, contact.firstName) &&
                 Objects.equals(lastName, contact.lastName) && Objects.equals(email, contact.email) &&
                 Objects.equals(emailType, contact.emailType) && Objects.equals(phoneNumber, contact.phoneNumber) &&
                 Objects.equals(phoneNumberType, contact.phoneNumberType) && Objects.equals(address, contact.address);
@@ -151,6 +120,11 @@ public class Contact implements Comparator<Contact> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, emailType, phoneNumber, phoneNumberType, address);
+        return Objects.hash(firstName, lastName, email, emailType, phoneNumber, phoneNumberType, address);
+    }
+
+    @Override
+    public int compareTo(Contact o) {
+        return CharSequence.compare(firstName, o.firstName);
     }
 }

@@ -3,9 +3,9 @@ package phonebook;
 import phonebook.domain.Contact;
 import phonebook.service.impl.ContactServiceImpl;
 
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ContactStart {
 
@@ -14,7 +14,7 @@ public class ContactStart {
         String command;
         String select;
         ContactServiceImpl service = new ContactServiceImpl();
-        Set<Contact> contacts = new HashSet<>();
+        Set<Contact> contacts = new TreeSet<>();
         System.out.println("Welcome Phone Book");
         System.out.println("Please follow to command");
         while (true) {
@@ -36,8 +36,8 @@ public class ContactStart {
                 }
                 case "2" -> {
                     System.out.println("""
-                            pass 1 for delete contact by name and phoneNumber\s
-                            pass 2 for delete contact by Id
+                            pass 1 for delete contact by name\s
+                            pass 2 for delete contact by phoneNumber
                             pass other for return main menu""");
                     select = scanner.next();
                     switch (select) {
@@ -46,11 +46,11 @@ public class ContactStart {
                             if (isDeleted) {
                                 System.out.println("Contact is deleted");
                             } else {
-                                System.out.println("this contact can not be deleted");
+                                System.out.println("contact does not exist");
                             }
                         }
-                        case "2" -> service.deleteContactById(contacts);
-                        default -> System.out.println("Wrong command to return to main menu");
+                        case "2" -> service.deleteContactByPhoneNumber(contacts);
+                        default -> System.out.println("command to return to main menu");
                     }
                 }
                 case "3" -> {
@@ -58,7 +58,7 @@ public class ContactStart {
                     if (contact != null) {
                         System.out.println("Contact is edited");
                     } else {
-                        System.out.println("this contact can not be edited");
+                        System.out.println("contact does not exist");
                     }
                 }
                 case "4" -> {
@@ -84,18 +84,12 @@ public class ContactStart {
                                 System.out.println("There is no contact with this firstName and lastName");
                             }
                         }
-                        default -> System.out.println("Wrong command to return to main menu");
+                        default -> System.out.println("command to return to main menu");
                     }
                 }
-                case "5" -> {
-                    service.getAllContacts(contacts);
-                }
-                case "0" -> {
-                    ContactServiceImpl.SystemExit();
-                }
-                default -> {
-                    System.out.println("You ara enter wrong command");
-                }
+                case "5" -> service.getAllContacts(contacts);
+                case "0" -> ContactServiceImpl.SystemExit();
+                default -> System.out.println("You ara enter wrong command");
             }
         }
     }

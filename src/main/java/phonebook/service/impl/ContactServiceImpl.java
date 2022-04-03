@@ -1,7 +1,7 @@
 package phonebook.service.impl;
 
 import phonebook.contactEnumType.EmailType;
-import phonebook.contactEnumType.PhoneBookType;
+import phonebook.contactEnumType.PhoneNumberType;
 import phonebook.domain.Address;
 import phonebook.domain.Contact;
 import phonebook.service.ContactService;
@@ -13,7 +13,6 @@ import java.util.Set;
 
 public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
-    Set<Contact> contacts = new HashSet<>();
     Contact contact = new Contact();
 
 
@@ -80,9 +79,8 @@ public class ContactServiceImpl implements ContactService {
             String firstName = scanner.next();
             System.out.println("Please enter lastName");
             String lastName = scanner.next();
-            contacts.removeIf(contact -> contact.getFirstName().equals(firstName)
+            return contacts.removeIf(contact -> contact.getFirstName().equals(firstName)
                     && contact.getLastName().equals(lastName));
-            return true;
         }
         return false;
     }
@@ -90,18 +88,20 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public Contact editeContact(Set<Contact> contacts) {
         Contact edited = null;
-            if (contacts != null) {
-                System.out.println("please enter Id for editing contact");
-                int contId = scanner.nextInt();
-                for (Contact cont : contacts) {
-                    if (cont.getId() == contId) {
-                        System.out.println("please enter new contact");
-                        Contact newContacts = createContact();
-                        Contact contactEdit = getContact(contact, contacts);
-                        edited = updatedContactToContact(newContacts, contactEdit);
-                    }
+        if (contacts != null) {
+            System.out.println("please enter first name");
+            String name = scanner.next();
+            System.out.println("please enter phone number for editing contact");
+            String contNumber = scanner.next();
+            for (Contact cont : contacts) {
+                if (cont.getFirstName().equals(name) && cont.getPhoneNumber().equals(contNumber)) {
+                    System.out.println("please enter new contact");
+                    Contact newContacts = createContact();
+                    Contact contactEdit = getContact(contact, contacts);
+                    edited = updatedContactToContact(newContacts, contactEdit);
                 }
             }
+        }
         return edited;
 
     }
@@ -116,22 +116,27 @@ public class ContactServiceImpl implements ContactService {
         contacts.forEach(System.out::println);
     }
 
-    @Override
-    public boolean deleteContactById(Set<Contact> contacts) {
-            if (contacts != null) {
-                System.out.println("please enter Id for deleting contact");
-                int contactId = scanner.nextInt();
-                contacts.removeIf(contact -> contact.getId() == contactId);
+    public void deleteContactByPhoneNumber(Set<Contact> contacts) {
+        if (contacts != null) {
+            System.out.println("please enter phone for deleting contact");
+            String contactNumber = scanner.next();
+            if (contacts.removeIf(contact -> contact.getPhoneNumber().equals(contactNumber))) {
                 System.out.println("Contact is deleted");
-                return true;
+            } else {
+                System.out.println("contact does not exist");
             }
-        return false;
+        }
+
     }
 
     private static Contact updatedContactToContact(Contact source, Contact destination) {
         destination.setFirstName(source.getFirstName());
         destination.setLastName(source.getLastName());
         destination.setPhoneNumber(source.getPhoneNumber());
+        destination.setPhoneNumberType(source.getPhoneNumberType());
+        destination.setEmail(source.getEmail());
+        destination.setEmailType(source.getEmailType());
+        destination.setAddress(source.getAddress());
         return destination;
     }
 
@@ -139,7 +144,7 @@ public class ContactServiceImpl implements ContactService {
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
         String select = "+";
-        System.out.println("please enter fist name, name mast be range in 3 - 15 symbols");
+        System.out.println("please enter fist name, name must be range in 3 - 15 symbols");
         while (true) {
             contact.setFirstName(scanner.next());
             if (ContactValidator.isValidFirstName(contact.getFirstName())) {
@@ -148,7 +153,7 @@ public class ContactServiceImpl implements ContactService {
                 System.out.println("no valid firstName try again");
             }
         }
-        System.out.println("please enter last name, name mast be range in 6 - 20 symbols");
+        System.out.println("please enter last name, name must be range in 6 - 20 symbols");
         while (true) {
             contact.setLastName(scanner.next());
             if (ContactValidator.isValidLastName(contact.getLastName())) {
@@ -157,7 +162,7 @@ public class ContactServiceImpl implements ContactService {
                 System.out.println("no valid lastName try again");
             }
         }
-        System.out.println("please enter phone number mast be range in 6 - 25 numbers ex (+374 ******)");
+        System.out.println("please enter phone number must be range in 6 - 25 numbers ex (+374 ******)");
         while (true) {
             contact.setPhoneNumber(scanner.next());
             if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())) {
@@ -171,10 +176,10 @@ public class ContactServiceImpl implements ContactService {
                 (1 for Work, 2 for Mobile, 3 for Home, 4 for School)""");
         String phoneNumberType = scanner.next();
         switch (phoneNumberType) {
-            case "1" -> contact.setPhoneNumberType(PhoneBookType.Work.getName());
-            case "2" -> contact.setPhoneNumberType(PhoneBookType.Mobile.getName());
-            case "3" -> contact.setPhoneNumberType(PhoneBookType.Home.getName());
-            case "4" -> contact.setPhoneNumberType(PhoneBookType.School.getName());
+            case "1" -> contact.setPhoneNumberType(PhoneNumberType.Work.getName());
+            case "2" -> contact.setPhoneNumberType(PhoneNumberType.Mobile.getName());
+            case "3" -> contact.setPhoneNumberType(PhoneNumberType.Home.getName());
+            case "4" -> contact.setPhoneNumberType(PhoneNumberType.School.getName());
             default -> System.out.println("other phone type");
         }
         System.out.println("""
@@ -225,7 +230,7 @@ public class ContactServiceImpl implements ContactService {
                     System.out.println("no valid city name try again");
                 }
             }
-            System.out.println("please enter street range is 6 to 23");
+            System.out.println("please enter street range is 4 to 23");
             while (true) {
                 address.setStreet(scanner.next());
                 if (ContactValidator.isValidStreet(address.getStreet())) {
@@ -234,7 +239,7 @@ public class ContactServiceImpl implements ContactService {
                     System.out.println("no valid street name try again");
                 }
             }
-            System.out.println("please enter building range is 1 to 3 numbers");
+            System.out.println("please enter building range is 1 to 999 numbers");
             while (true) {
                 address.setBuilding(scanner.next());
                 if (ContactValidator.isValidBuilding(address.getBuilding())) {
@@ -243,7 +248,7 @@ public class ContactServiceImpl implements ContactService {
                     System.out.println("no valid building try again");
                 }
             }
-            System.out.println("please enter apartment range is 1 to 3 numbers");
+            System.out.println("please enter apartment range is 1 to 999 numbers");
             while (true) {
                 address.setApartment(scanner.next());
                 if (ContactValidator.isValidApartment(address.getApartment())) {

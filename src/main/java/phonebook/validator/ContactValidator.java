@@ -32,16 +32,7 @@ public final class ContactValidator {
     }
 
     public static boolean isValidPhoneNumber(String phoneNumber) {
-        if (phoneNumber == null) {
-            return false;
-        }
-        int len = phoneNumber.length();
-        for (int i = 0; i < len; i++) {
-            if (phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) > '9') {
-                return false;
-            }
-        }
-        return len >= 6 && len <= 25;
+        return phoneNumber.matches("^\\+?[0-9 ]{6,25}$");
     }
 
     public static boolean isValidEmail(String email) {
@@ -50,13 +41,6 @@ public final class ContactValidator {
         }
         int len = email.length();
         return len >= 6;
-    }
-    public static boolean isValidPhoneNumberType(String type){
-        if (type == null){
-            return false;
-        }
-        int len = type.length();
-        return len==1;
     }
 
     public static boolean isValidCountry(String country) {
@@ -90,7 +74,7 @@ public final class ContactValidator {
             return false;
         }
         int len = street.length();
-        return len >= 6 && len <= 23;
+        return len >= 4 && len <= 23;
     }
 
     public static boolean isValidBuilding(String building) {

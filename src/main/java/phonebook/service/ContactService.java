@@ -1,6 +1,5 @@
 package phonebook.service;
 
-
 import phonebook.domain.Contact;
 
 import java.util.Set;
@@ -20,5 +19,5 @@ public interface ContactService {
 
     void getAllContacts(Set<Contact> contacts);
 
-    boolean deleteContactById(Set<Contact> contacts);
+    void deleteContactByPhoneNumber(Set<Contact> contacts);
 }
