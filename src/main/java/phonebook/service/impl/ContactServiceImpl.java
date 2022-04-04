@@ -66,7 +66,7 @@ public class ContactServiceImpl implements ContactService {
         contact = createContact();
         if (contacts != null) {
             for (Contact cont : contacts) {
-                if (cont.equals(contact)) {
+                if (cont.getFirstName().equals(contact.getFirstName())) {
                     System.out.println("this contact is already exist");
                     return false;
                 }
