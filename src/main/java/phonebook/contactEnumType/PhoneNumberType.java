@@ -8,13 +8,13 @@ public enum PhoneNumberType {
     Mobile(2, "Mobile"),
     Home(3, "Home"),
     School(4, "School");
-    private static final Map<Integer, PhoneNumberType> phoneBookType = new HashMap<>();
+    private static final Map<Integer, PhoneNumberType> phoneNumber = new HashMap<>();
     private final int code;
     private final String name;
 
     static {
         for (PhoneNumberType type : PhoneNumberType.values()) {
-            phoneBookType.put(type.getCode(), type);
+            phoneNumber.put(type.getCode(), type);
         }
     }
 
@@ -32,6 +32,6 @@ public enum PhoneNumberType {
     }
 
     public static PhoneNumberType getId(int id) {
-        return phoneBookType.get(id);
+        return phoneNumber.get(id);
     }
 }

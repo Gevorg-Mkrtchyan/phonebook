@@ -19,5 +19,5 @@ public interface ContactService {
 
     void getAllContacts(Set<Contact> contacts);
 
-    void deleteContactByPhoneNumber(Set<Contact> contacts);
+    void deleteContactByNameAndNumber(Set<Contact> contacts);
 }

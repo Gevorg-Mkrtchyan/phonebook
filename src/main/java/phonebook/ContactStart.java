@@ -18,26 +18,19 @@ public class ContactStart {
         System.out.println("Welcome Phone Book");
         System.out.println("Please follow to command");
         while (true) {
-            System.out.println("press 1 for adding contact");
-            System.out.println("press 2 for deleting contact");
-            System.out.println("press 3 for editing contact");
+            System.out.println("press 1 for add contact");
+            System.out.println("press 2 for delete contact");
+            System.out.println("press 3 for edit contact");
             System.out.println("press 4 for search contact");
-            System.out.println("press 5 for getting all contacts");
+            System.out.println("press 5 for get all contacts");
             System.out.println("press 0 for exit phone book");
             command = scanner.next();
             switch (command) {
-                case "1" -> {
-                    final boolean isAdded = service.addContact(contacts);
-                    if (isAdded) {
-                        System.out.println("You successfully add contact");
-                    } else {
-                        System.out.println("Sorry sometimes went wrong");
-                    }
-                }
+                case "1" -> service.addContact(contacts);
                 case "2" -> {
                     System.out.println("""
-                            pass 1 for delete contact by name\s
-                            pass 2 for delete contact by phoneNumber
+                            pass 1 for delete contact by first name and last name\s
+                            pass 2 for delete contact by first name and phoneNumber
                             pass other for return main menu""");
                     select = scanner.next();
                     switch (select) {
@@ -49,8 +42,8 @@ public class ContactStart {
                                 System.out.println("contact does not exist");
                             }
                         }
-                        case "2" -> service.deleteContactByPhoneNumber(contacts);
-                        default -> System.out.println("command to return to main menu");
+                        case "2" -> service.deleteContactByNameAndNumber(contacts);
+                        default -> System.out.println("return to main menu");
                     }
                 }
                 case "3" -> {
@@ -84,12 +77,12 @@ public class ContactStart {
                                 System.out.println("There is no contact with this firstName and lastName");
                             }
                         }
-                        default -> System.out.println("command to return to main menu");
+                        default -> System.out.println("return to main menu");
                     }
                 }
                 case "5" -> service.getAllContacts(contacts);
                 case "0" -> ContactServiceImpl.SystemExit();
-                default -> System.out.println("You ara enter wrong command");
+                default -> System.out.println("You are enter wrong command");
             }
         }
     }

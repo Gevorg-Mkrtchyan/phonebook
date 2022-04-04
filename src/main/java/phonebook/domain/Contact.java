@@ -12,7 +12,6 @@ public class Contact implements Comparable<Contact> {
     private String phoneNumberType;
     private Address address;
 
-
     public Contact() {
 
     }
@@ -84,6 +83,26 @@ public class Contact implements Comparable<Contact> {
         this.address = address;
     }
 
+    @Override
+    public int compareTo(Contact o) {
+        return CharSequence.compare(firstName, o.firstName);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contact contact = (Contact) o;
+        return Objects.equals(firstName, contact.firstName) &&
+                Objects.equals(lastName, contact.lastName) && Objects.equals(email, contact.email) &&
+                Objects.equals(emailType, contact.emailType) && Objects.equals(phoneNumber, contact.phoneNumber) &&
+                Objects.equals(phoneNumberType, contact.phoneNumberType) && Objects.equals(address, contact.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, email, emailType, phoneNumber, phoneNumberType, address);
+    }
 
     @Override
     public String toString() {
@@ -105,26 +124,5 @@ public class Contact implements Comparable<Contact> {
                     ", address=" + address +
                     '}';
         }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Contact contact = (Contact) o;
-        return Objects.equals(firstName, contact.firstName) &&
-                Objects.equals(lastName, contact.lastName) && Objects.equals(email, contact.email) &&
-                Objects.equals(emailType, contact.emailType) && Objects.equals(phoneNumber, contact.phoneNumber) &&
-                Objects.equals(phoneNumberType, contact.phoneNumberType) && Objects.equals(address, contact.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName, email, emailType, phoneNumber, phoneNumberType, address);
-    }
-
-    @Override
-    public int compareTo(Contact o) {
-        return CharSequence.compare(firstName, o.firstName);
     }
 }

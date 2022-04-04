@@ -15,7 +15,6 @@ public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
     Contact contact = new Contact();
 
-
     @Override
     public Set<Contact> getByNameAndLastName(Set<Contact> contacts) {
         Set<Contact> result = new HashSet<>();
@@ -53,8 +52,8 @@ public class ContactServiceImpl implements ContactService {
         Contact result = null;
         if (contacts != null && contact != null) {
             for (Contact cont : contacts) {
-                if (cont.getFirstName().equals(contact.getFirstName()) && cont.getLastName().equals(contact.getLastName())
-                        && cont.getPhoneNumber().equals(contact.getPhoneNumber())) {
+                if (cont.getFirstName().equals(contact.getFirstName()) && cont.getLastName().equals
+                        (contact.getLastName()) && cont.getPhoneNumber().equals(contact.getPhoneNumber())) {
                     result = cont;
                 }
             }
@@ -64,12 +63,18 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public boolean addContact(Set<Contact> contacts) {
+        contact = createContact();
         if (contacts != null) {
-            contact = createContact();
+            for (Contact cont : contacts) {
+                if (cont.equals(contact)) {
+                    System.out.println("this contact is already exist");
+                    return false;
+                }
+            }
             contacts.add(contact);
-            return true;
+            System.out.println("You successfully add contact");
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -91,11 +96,11 @@ public class ContactServiceImpl implements ContactService {
         if (contacts != null) {
             System.out.println("please enter first name");
             String name = scanner.next();
-            System.out.println("please enter phone number for editing contact");
+            System.out.println("please enter phone number for edit the contact");
             String contNumber = scanner.next();
             for (Contact cont : contacts) {
                 if (cont.getFirstName().equals(name) && cont.getPhoneNumber().equals(contNumber)) {
-                    System.out.println("please enter new contact");
+                    System.out.println("please enter new edited contact");
                     Contact newContacts = createContact();
                     Contact contactEdit = getContact(contact, contacts);
                     edited = updatedContactToContact(newContacts, contactEdit);
@@ -103,7 +108,6 @@ public class ContactServiceImpl implements ContactService {
             }
         }
         return edited;
-
     }
 
     @Override
@@ -111,22 +115,24 @@ public class ContactServiceImpl implements ContactService {
         if (contacts.isEmpty()) {
             System.out.println("contacts is empty");
         } else {
-            System.out.println("print contact");
+            System.out.println("printed your all contacts");
         }
         contacts.forEach(System.out::println);
     }
 
-    public void deleteContactByPhoneNumber(Set<Contact> contacts) {
+    public void deleteContactByNameAndNumber(Set<Contact> contacts) {
         if (contacts != null) {
-            System.out.println("please enter phone for deleting contact");
+            System.out.println("please enter first name");
+            String firstName = scanner.next();
+            System.out.println("please enter phone number to delete the contact");
             String contactNumber = scanner.next();
-            if (contacts.removeIf(contact -> contact.getPhoneNumber().equals(contactNumber))) {
+            if (contacts.removeIf(contact -> contact.getPhoneNumber().equals(contactNumber))
+                    && contact.getFirstName().equals(firstName)) {
                 System.out.println("Contact is deleted");
             } else {
                 System.out.println("contact does not exist");
             }
         }
-
     }
 
     private static Contact updatedContactToContact(Contact source, Contact destination) {
@@ -144,31 +150,31 @@ public class ContactServiceImpl implements ContactService {
         Scanner scanner = new Scanner(System.in);
         Contact contact = new Contact();
         String select = "+";
-        System.out.println("please enter fist name, name must be range in 3 - 15 symbols");
+        System.out.println("please enter fist name, name must be in range 3 - 15 symbols");
         while (true) {
             contact.setFirstName(scanner.next());
             if (ContactValidator.isValidFirstName(contact.getFirstName())) {
                 break;
             } else {
-                System.out.println("no valid firstName try again");
+                System.out.println("invalid firstName try again");
             }
         }
-        System.out.println("please enter last name, name must be range in 6 - 20 symbols");
+        System.out.println("please enter last name, name must be in range 6 - 20 symbols");
         while (true) {
             contact.setLastName(scanner.next());
             if (ContactValidator.isValidLastName(contact.getLastName())) {
                 break;
             } else {
-                System.out.println("no valid lastName try again");
+                System.out.println("invalid lastName try again");
             }
         }
-        System.out.println("please enter phone number must be range in 6 - 25 numbers ex (+374 ******)");
+        System.out.println("please enter phone number must be in range 6 - 25 numbers ex (+374 ******)");
         while (true) {
             contact.setPhoneNumber(scanner.next());
             if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())) {
                 break;
             } else {
-                System.out.println("no valid phone number");
+                System.out.println("invalid phone number");
             }
         }
         System.out.println("""
@@ -184,7 +190,7 @@ public class ContactServiceImpl implements ContactService {
         }
         System.out.println("""
                 Do you want to add an email?\s
-                 if yes = '+'  if no = other""");
+                if yes print '+' else print other symbol""");
         String selectEmail = scanner.next();
         if (selectEmail.equals(select)) {
             System.out.println("please enter email, email range >= 6  ex qwerty@gmail.com");
@@ -193,7 +199,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidEmail(contact.getEmail())) {
                     break;
                 } else {
-                    System.out.println("no valid email try again");
+                    System.out.println("invalid email try again");
                 }
             }
             System.out.println("""
@@ -208,53 +214,55 @@ public class ContactServiceImpl implements ContactService {
                 default -> System.out.println("other email type");
             }
         }
-        System.out.println("Do you want to add an address? \n if yes = '+'  if no = other");
+        System.out.println("""
+                Do you want to add an address?\s
+                if yes print '+' else print other symbol""");
         String addAddress = scanner.next();
         if (addAddress.equals(select)) {
             Address address = new Address();
-            System.out.println("please enter Country, range is 3 to 20");
+            System.out.println("please enter Country name in range from 3 to 20");
             while (true) {
                 address.setCountry(scanner.next());
                 if (ContactValidator.isValidCountry(address.getCountry())) {
                     break;
                 } else {
-                    System.out.println("no valid country name try again");
+                    System.out.println("invalid country name try again");
                 }
             }
-            System.out.println("please enter city range is 3 to 20");
+            System.out.println("please enter city name in range from 3 to 20");
             while (true) {
                 address.setCity(scanner.next());
                 if (ContactValidator.isValidCity(address.getCity())) {
                     break;
                 } else {
-                    System.out.println("no valid city name try again");
+                    System.out.println("invalid city name try again");
                 }
             }
-            System.out.println("please enter street range is 4 to 23");
+            System.out.println("please enter street in range from 4 to 23");
             while (true) {
                 address.setStreet(scanner.next());
                 if (ContactValidator.isValidStreet(address.getStreet())) {
                     break;
                 } else {
-                    System.out.println("no valid street name try again");
+                    System.out.println("invalid street name try again");
                 }
             }
-            System.out.println("please enter building range is 1 to 999 numbers");
+            System.out.println("please enter building number in range from 1 to 999 numbers");
             while (true) {
                 address.setBuilding(scanner.next());
                 if (ContactValidator.isValidBuilding(address.getBuilding())) {
                     break;
                 } else {
-                    System.out.println("no valid building try again");
+                    System.out.println("invalid building try again");
                 }
             }
-            System.out.println("please enter apartment range is 1 to 999 numbers");
+            System.out.println("please enter apartment in range from 1 to 999 numbers");
             while (true) {
                 address.setApartment(scanner.next());
                 if (ContactValidator.isValidApartment(address.getApartment())) {
                     break;
                 } else {
-                    System.out.println("no valid apartment try again");
+                    System.out.println("invalid apartment try again");
                 }
 
             }
@@ -266,6 +274,7 @@ public class ContactServiceImpl implements ContactService {
     public static void SystemExit() {
         System.out.println("phone book is closed");
         System.out.println("Thank you for using our phonebook ☺");
+        System.out.println("Phone Book version 1.1");
         System.exit(0);
     }
 }
