@@ -71,8 +71,15 @@ public class ContactServiceImpl implements ContactService {
                     return false;
                 }
             }
-            contacts.add(contact);
-            System.out.println("You successfully add contact");
+            System.out.println("if you save contact give + else give other");
+            String select = scanner.next();
+            if (select.equals("+")) {
+                contacts.add(contact);
+                System.out.println("You successfully add contact");
+            } else {
+                System.out.println("contact don't save");
+            }
+            return false;
         }
         return true;
     }
@@ -115,7 +122,7 @@ public class ContactServiceImpl implements ContactService {
         if (contacts.isEmpty()) {
             System.out.println("contacts is empty");
         } else {
-            System.out.println("printed your all contacts");
+            System.out.println("printed your contacts");
         }
         contacts.forEach(System.out::println);
     }
@@ -156,7 +163,7 @@ public class ContactServiceImpl implements ContactService {
             if (ContactValidator.isValidFirstName(contact.getFirstName())) {
                 break;
             } else {
-                System.out.println("invalid firstName try again");
+                System.err.println("invalid firstName try again");
             }
         }
         System.out.println("please enter last name, name must be in range 6 - 20 symbols");
@@ -165,7 +172,7 @@ public class ContactServiceImpl implements ContactService {
             if (ContactValidator.isValidLastName(contact.getLastName())) {
                 break;
             } else {
-                System.out.println("invalid lastName try again");
+                System.err.println("invalid lastName try again");
             }
         }
         System.out.println("please enter phone number must be in range 6 - 25 numbers ex (+374 ******)");
@@ -174,7 +181,7 @@ public class ContactServiceImpl implements ContactService {
             if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())) {
                 break;
             } else {
-                System.out.println("invalid phone number");
+                System.err.println("invalid phone number");
             }
         }
         System.out.println("""
@@ -199,7 +206,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidEmail(contact.getEmail())) {
                     break;
                 } else {
-                    System.out.println("invalid email try again");
+                    System.err.println("invalid email try again");
                 }
             }
             System.out.println("""
@@ -226,7 +233,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidCountry(address.getCountry())) {
                     break;
                 } else {
-                    System.out.println("invalid country name try again");
+                    System.err.println("invalid country name try again");
                 }
             }
             System.out.println("please enter city name in range from 3 to 20");
@@ -235,7 +242,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidCity(address.getCity())) {
                     break;
                 } else {
-                    System.out.println("invalid city name try again");
+                    System.err.println("invalid city name try again");
                 }
             }
             System.out.println("please enter street in range from 4 to 23");
@@ -244,7 +251,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidStreet(address.getStreet())) {
                     break;
                 } else {
-                    System.out.println("invalid street name try again");
+                    System.err.println("invalid street name try again");
                 }
             }
             System.out.println("please enter building number in range from 1 to 999 numbers");
@@ -253,7 +260,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidBuilding(address.getBuilding())) {
                     break;
                 } else {
-                    System.out.println("invalid building try again");
+                    System.err.println("invalid building try again");
                 }
             }
             System.out.println("please enter apartment in range from 1 to 999 numbers");
@@ -262,7 +269,7 @@ public class ContactServiceImpl implements ContactService {
                 if (ContactValidator.isValidApartment(address.getApartment())) {
                     break;
                 } else {
-                    System.out.println("invalid apartment try again");
+                    System.err.println("invalid apartment try again");
                 }
 
             }
