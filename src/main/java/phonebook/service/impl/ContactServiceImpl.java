@@ -71,7 +71,7 @@ public class ContactServiceImpl implements ContactService {
                     return false;
                 }
             }
-            System.out.println("if you save contact give + else give other");
+            System.out.println("if you save contact give + else print other symbol");
             String select = scanner.next();
             if (select.equals("+")) {
                 contacts.add(contact);
