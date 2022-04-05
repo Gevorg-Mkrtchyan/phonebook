@@ -66,7 +66,8 @@ public class ContactServiceImpl implements ContactService {
         contact = createContact();
         if (contacts != null) {
             for (Contact cont : contacts) {
-                if (cont.getFirstName().equals(contact.getFirstName())) {
+                if (cont.getFirstName().equals(contact.getFirstName())&&
+                        cont.getLastName().equals(contact.getLastName())) {
                     System.out.println("this contact is already exist");
                     return false;
                 }
@@ -165,7 +166,7 @@ public class ContactServiceImpl implements ContactService {
         String select = "+";
         System.out.println("please enter fist name, name must be in range 3 - 15 symbols");
         while (true) {
-            contact.setFirstName(scanner.next());
+            contact.setFirstName(scanner.nextLine());
             if (ContactValidator.isValidFirstName(contact.getFirstName())) {
                 break;
             } else {
@@ -174,7 +175,7 @@ public class ContactServiceImpl implements ContactService {
         }
         System.out.println("please enter last name, name must be in range 6 - 20 symbols");
         while (true) {
-            contact.setLastName(scanner.next());
+            contact.setLastName(scanner.nextLine());
             if (ContactValidator.isValidLastName(contact.getLastName())) {
                 break;
             } else {
@@ -183,7 +184,7 @@ public class ContactServiceImpl implements ContactService {
         }
         System.out.println("please enter phone number must be in range 6 - 25 numbers ex (+374 ******)");
         while (true) {
-            contact.setPhoneNumber(scanner.next());
+            contact.setPhoneNumber(scanner.nextLine());
             if (ContactValidator.isValidPhoneNumber(contact.getPhoneNumber())) {
                 break;
             } else {
@@ -208,7 +209,7 @@ public class ContactServiceImpl implements ContactService {
         if (selectEmail.equals(select)) {
             System.out.println("please enter email, email range >= 6  ex qwerty@gmail.com");
             while (true) {
-                contact.setEmail(scanner.next());
+                contact.setEmail(scanner.nextLine());
                 if (ContactValidator.isValidEmail(contact.getEmail())) {
                     break;
                 } else {
@@ -235,7 +236,7 @@ public class ContactServiceImpl implements ContactService {
             Address address = new Address();
             System.out.println("please enter Country name in range from 3 to 20");
             while (true) {
-                address.setCountry(scanner.next());
+                address.setCountry(scanner.nextLine());
                 if (ContactValidator.isValidCountry(address.getCountry())) {
                     break;
                 } else {
@@ -244,7 +245,7 @@ public class ContactServiceImpl implements ContactService {
             }
             System.out.println("please enter city name in range from 3 to 20");
             while (true) {
-                address.setCity(scanner.next());
+                address.setCity(scanner.nextLine());
                 if (ContactValidator.isValidCity(address.getCity())) {
                     break;
                 } else {
@@ -253,7 +254,7 @@ public class ContactServiceImpl implements ContactService {
             }
             System.out.println("please enter street in range from 4 to 23");
             while (true) {
-                address.setStreet(scanner.next());
+                address.setStreet(scanner.nextLine());
                 if (ContactValidator.isValidStreet(address.getStreet())) {
                     break;
                 } else {
@@ -262,7 +263,7 @@ public class ContactServiceImpl implements ContactService {
             }
             System.out.println("please enter building number in range from 1 to 999 numbers");
             while (true) {
-                address.setBuilding(scanner.next());
+                address.setBuilding(scanner.nextLine());
                 if (ContactValidator.isValidBuilding(address.getBuilding())) {
                     break;
                 } else {
@@ -271,7 +272,7 @@ public class ContactServiceImpl implements ContactService {
             }
             System.out.println("please enter apartment in range from 1 to 999 numbers");
             while (true) {
-                address.setApartment(scanner.next());
+                address.setApartment(scanner.nextLine());
                 if (ContactValidator.isValidApartment(address.getApartment())) {
                     break;
                 } else {

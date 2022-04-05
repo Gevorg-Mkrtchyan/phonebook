@@ -3,18 +3,18 @@ package phonebook;
 import phonebook.domain.Contact;
 import phonebook.service.impl.ContactServiceImpl;
 
+import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeSet;
 
-public class ContactStart {
+public class ContactStart  {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String command;
         String select;
         ContactServiceImpl service = new ContactServiceImpl();
-        Set<Contact> contacts = new TreeSet<>();
+        Set<Contact> contacts = new HashSet<>();
         System.out.println("Welcome Phone Book");
         System.out.println("Please follow to command");
         while (true) {
