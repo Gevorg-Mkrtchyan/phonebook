@@ -285,7 +285,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     public static void SystemExit() {
-        System.out.println("\u001B[39m" + "phone book is closed");
+        System.out.println("\u001B[36m" + "phone book is closed");
         System.out.println("Thank you for using our phonebook ☺");
         System.out.println("Phone Book version 1.2");
         System.exit(0);
