@@ -7,9 +7,9 @@ import phonebook.domain.Contact;
 import phonebook.service.ContactService;
 import phonebook.validator.ContactValidator;
 
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
 public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
@@ -17,7 +17,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Set<Contact> getByNameAndLastName(Set<Contact> contacts) {
-        Set<Contact> result = new HashSet<>();
+        Set<Contact> result = new TreeSet<>();
         if (contacts != null) {
             System.out.println("Please enter firstName");
             String firstName = scanner.next();
@@ -34,7 +34,7 @@ public class ContactServiceImpl implements ContactService {
 
     @Override
     public Set<Contact> getByPhoneNumber(Set<Contact> contacts) {
-        Set<Contact> result = new HashSet<>();
+        Set<Contact> result = new TreeSet<>();
         if (contacts != null) {
             System.out.println("please enter phone number");
             String phoneNumber = scanner.next();
