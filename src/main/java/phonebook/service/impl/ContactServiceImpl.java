@@ -71,13 +71,20 @@ public class ContactServiceImpl implements ContactService {
                     return false;
                 }
             }
-            System.out.println("if you save contact give + else print other symbol");
-            String select = scanner.next();
-            if (select.equals("+")) {
-                contacts.add(contact);
-                System.out.println("You successfully add contact");
-            } else {
-                System.out.println("contact don't save");
+            System.out.println("if you save contact print + else print - symbol");
+            while (true) {
+                String select = scanner.next();
+                if (select.equals("+")) {
+                    contacts.add(contact);
+                    System.out.println("You successfully add contact");
+                    break;
+                } else if (select.equals("-")) {
+                    System.out.println("contact don't save");
+                    break;
+                }
+                else {
+                    System.out.println("if you save contact print + else print - symbol");
+                }
             }
             return false;
         }
