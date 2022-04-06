@@ -3,18 +3,22 @@ package phonebook;
 import phonebook.domain.Contact;
 import phonebook.service.impl.ContactServiceImpl;
 
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeSet;
 
-public class ContactStart  {
+import static phonebook.service.SaveAndLoadContact.read;
+import static phonebook.service.SaveAndLoadContact.write;
+
+public class ContactStart {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String command;
         String select;
         ContactServiceImpl service = new ContactServiceImpl();
-        Set<Contact> contacts = new HashSet<>();
+        Set<Contact> contacts = new TreeSet<>();
+        read(contacts);
         System.out.println("Welcome Phone Book");
         System.out.println("Please follow to command");
         while (true) {
@@ -81,7 +85,10 @@ public class ContactStart  {
                     }
                 }
                 case "5" -> service.getAllContacts(contacts);
-                case "0" -> ContactServiceImpl.SystemExit();
+                case "0" -> {
+                    write(contacts);
+                    ContactServiceImpl.SystemExit();
+                }
                 default -> System.out.println("You are enter wrong command");
             }
         }

@@ -7,8 +7,8 @@ public enum EmailType {
     GMAIL(1, "@gmail.com"),
     MAIL(2, "@mail.ru"),
     YAHOO(3, "@yahoo.com"),
-    YANDEX(4, "@yandex.ru");
-
+    YANDEX(4, "@yandex.ru"),
+    OTHER(5, "Other");
     private static final Map<Integer, EmailType> emailType = new HashMap<>();
     private final int code;
     private final String name;

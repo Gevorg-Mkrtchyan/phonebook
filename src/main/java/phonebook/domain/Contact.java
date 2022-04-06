@@ -1,8 +1,9 @@
 package phonebook.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Contact implements Comparable<Contact> {
+public class Contact implements Comparable<Contact>, Serializable {
 
     private String firstName;
     private String lastName;
@@ -22,6 +23,31 @@ public class Contact implements Comparable<Contact> {
         this.lastName = lastName;
         this.email = email;
         this.emailType = emailType;
+        this.phoneNumber = phoneNumber;
+        this.phoneNumberType = phoneNumberType;
+        this.address = address;
+    }
+
+    public Contact(String firstName, String lastName, String phoneNumber, String phoneNumberType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.phoneNumberType = phoneNumberType;
+    }
+
+    public Contact(String firstName, String lastName, String email, String emailType, String phoneNumber,
+                   String phoneNumberType) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.emailType = emailType;
+        this.phoneNumber = phoneNumber;
+        this.phoneNumberType = phoneNumberType;
+    }
+
+    public Contact(String firstName, String lastName, String phoneNumber, String phoneNumberType, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.phoneNumberType = phoneNumberType;
         this.address = address;
@@ -106,12 +132,29 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public String toString() {
-        if (getEmail() == null) {
+        if (getEmail() == null && getAddress() == null) {
             return "Contact{" +
                     "firstName='" + firstName + '\'' +
                     ", lastName='" + lastName + '\'' +
                     ", phoneNumber='" + phoneNumber + '\'' +
                     ", phoneNumberType='" + phoneNumberType +
+                    '}';
+        } else if (getAddress() == null) {
+            return "Contact{" +
+                    "firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumberType='" + phoneNumberType + '\'' +
+                    ", email='" + email + '\'' +
+                    ", emailType='" + emailType + '\'' +
+                    '}';
+        } else if (getEmail() == null) {
+            return "Contact{" +
+                    "firstName='" + firstName + '\'' +
+                    ", lastName='" + lastName + '\'' +
+                    ", phoneNumber='" + phoneNumber + '\'' +
+                    ", phoneNumberType='" + phoneNumberType + '\'' +
+                    ", address=" + address +
                     '}';
         } else {
             return "Contact{" +

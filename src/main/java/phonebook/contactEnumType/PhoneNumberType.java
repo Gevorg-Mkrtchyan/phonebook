@@ -7,7 +7,8 @@ public enum PhoneNumberType {
     Work(1, "Work"),
     Mobile(2, "Mobile"),
     Home(3, "Home"),
-    School(4, "School");
+    School(4, "School"),
+    OTHER(5, "Other");
     private static final Map<Integer, PhoneNumberType> phoneNumber = new HashMap<>();
     private final int code;
     private final String name;
