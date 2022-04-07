@@ -7,8 +7,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static phonebook.resources.SaveAndLoadContact.read;
-import static phonebook.resources.SaveAndLoadContact.write;
+import static phonebook.util.SaveAndLoadContact.read;
+import static phonebook.util.SaveAndLoadContact.write;
 
 public class ContactStart {
 

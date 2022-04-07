@@ -13,7 +13,6 @@ import java.util.TreeSet;
 
 public class ContactServiceImpl implements ContactService {
     private final Scanner scanner = new Scanner(System.in);
-    Contact contact = new Contact();
 
     @Override
     public Set<Contact> getByNameAndLastName(Set<Contact> contacts) {

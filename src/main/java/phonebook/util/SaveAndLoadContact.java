@@ -1,4 +1,4 @@
-package phonebook.resources;
+package phonebook.util;
 
 import phonebook.domain.Address;
 import phonebook.domain.Contact;
@@ -7,8 +7,10 @@ import java.io.*;
 import java.util.Set;
 
 public class SaveAndLoadContact {
+    private static final String file = "src/main/resources/file.txt";
+
     public static void write(Set<Contact> contacts) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/java/phonebook/resources/file.txt"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             for (Contact c : contacts) {
                 if (c.getEmail() != null && c.getAddress() == null) {
                     writer.write(c.getFirstName() + "†" + c.getLastName() + "†" + c.getPhoneNumber() + "†"
@@ -36,7 +38,7 @@ public class SaveAndLoadContact {
     }
 
     public static void read(Set<Contact> contacts) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/main/java/phonebook/resources/file.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             String[] words;
             while ((line = reader.readLine()) != null) {
