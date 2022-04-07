@@ -93,7 +93,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public boolean delete(Set<Contact> contacts) {
+    public boolean deleteContactByFirstAndLastNames(Set<Contact> contacts) {
         if (contacts != null) {
             System.out.println("Please enter firstName");
             String firstName = scanner.next();
@@ -131,6 +131,11 @@ public class ContactServiceImpl implements ContactService {
             System.out.println("printed your contacts");
         }
         contacts.forEach(System.out::println);
+    }
+
+    public void deleteAll(Set<Contact> contacts) {
+        contacts.clear();
+        System.out.println("Contact is deleted");
     }
 
     public void deleteContactByNameAndNumber(Set<Contact> contacts) {

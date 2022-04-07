@@ -7,8 +7,8 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static phonebook.service.SaveAndLoadContact.read;
-import static phonebook.service.SaveAndLoadContact.write;
+import static phonebook.resources.SaveAndLoadContact.read;
+import static phonebook.resources.SaveAndLoadContact.write;
 
 public class ContactStart {
 
@@ -35,11 +35,12 @@ public class ContactStart {
                     System.out.println("""
                             pass 1 for delete contact by first name and last name\s
                             pass 2 for delete contact by first name and phoneNumber
+                            pass 3 for delete all contacts
                             pass other for return main menu""");
                     select = scanner.next();
                     switch (select) {
                         case "1" -> {
-                            final boolean isDeleted = service.delete(contacts);
+                            final boolean isDeleted = service.deleteContactByFirstAndLastNames(contacts);
                             if (isDeleted) {
                                 System.out.println("Contact is deleted");
                             } else {
@@ -47,6 +48,7 @@ public class ContactStart {
                             }
                         }
                         case "2" -> service.deleteContactByNameAndNumber(contacts);
+                        case "3" -> service.deleteAll(contacts);
                         default -> System.out.println("return to main menu");
                     }
                 }

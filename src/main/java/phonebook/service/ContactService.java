@@ -13,7 +13,7 @@ public interface ContactService {
 
     boolean addContact(Set<Contact> contacts);
 
-    boolean delete(Set<Contact> contacts);
+    boolean deleteContactByFirstAndLastNames(Set<Contact> contacts);
 
     Contact editeContact(Set<Contact> contacts);
 

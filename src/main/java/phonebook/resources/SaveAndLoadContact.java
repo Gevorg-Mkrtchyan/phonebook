@@ -1,4 +1,4 @@
-package phonebook.service;
+package phonebook.resources;
 
 import phonebook.domain.Address;
 import phonebook.domain.Contact;
