@@ -134,7 +134,7 @@ public class ContactServiceImpl implements ContactService {
 
     public void deleteAll(Set<Contact> contacts) {
         contacts.clear();
-        System.out.println("Contact is deleted");
+        System.out.println("all contacts ara deleted");
     }
 
     public void deleteContactByNameAndNumber(Set<Contact> contacts) {
@@ -294,7 +294,7 @@ public class ContactServiceImpl implements ContactService {
     public static void SystemExit() {
         System.out.println("\u001B[36m" + "phone book is closed");
         System.out.println("Thank you for using our phonebook ☺");
-        System.out.println("Phone Book version 1.31");
+        System.out.println("Phone Book version 1.32");
         System.exit(0);
     }
 }

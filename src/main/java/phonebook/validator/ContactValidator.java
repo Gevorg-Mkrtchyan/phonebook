@@ -83,7 +83,7 @@ public final class ContactValidator {
         }
         int len = building.length();
         for (int i = 0; i < len; i++) {
-            if (building.charAt(i) < '1' || building.charAt(i) > '9') {
+            if (building.charAt(0) == '0' || building.charAt(i) < '0' || building.charAt(i) > '9') {
                 return false;
             }
         }
@@ -96,7 +96,7 @@ public final class ContactValidator {
         }
         int len = apartment.length();
         for (int i = 0; i < len; i++) {
-            if (apartment.charAt(i) < '1' || apartment.charAt(i) > '9') {
+            if (apartment.charAt(i) < '0' || apartment.charAt(i) > '9' || apartment.charAt(0) == '0') {
                 return false;
             }
         }
