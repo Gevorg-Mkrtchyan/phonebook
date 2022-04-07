@@ -7,10 +7,10 @@ import java.io.*;
 import java.util.Set;
 
 public class SaveAndLoadContact {
-    private static final String file = "src/main/resources/file.txt";
+    private static final String FILE = "src/main/resources/file.txt";
 
     public static void write(Set<Contact> contacts) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE))) {
             for (Contact c : contacts) {
                 if (c.getEmail() != null && c.getAddress() == null) {
                     writer.write(c.getFirstName() + "†" + c.getLastName() + "†" + c.getPhoneNumber() + "†"
@@ -38,7 +38,7 @@ public class SaveAndLoadContact {
     }
 
     public static void read(Set<Contact> contacts) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE))) {
             String line;
             String[] words;
             while ((line = reader.readLine()) != null) {
