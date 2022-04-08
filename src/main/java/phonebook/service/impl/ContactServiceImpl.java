@@ -134,7 +134,7 @@ public class ContactServiceImpl implements ContactService {
 
     public void deleteAll(Set<Contact> contacts) {
         contacts.clear();
-        System.out.println("all contacts ara deleted");
+        System.out.println("all contacts are deleted");
     }
 
     public void deleteContactByNameAndNumber(Set<Contact> contacts) {
