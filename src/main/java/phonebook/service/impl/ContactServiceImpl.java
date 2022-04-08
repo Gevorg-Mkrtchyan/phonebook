@@ -105,7 +105,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public Contact editeContact(Set<Contact> contacts) {
+    public Contact editContact(Set<Contact> contacts) {
         Contact edited = null;
         if (contacts != null) {
             System.out.println("please enter first name");

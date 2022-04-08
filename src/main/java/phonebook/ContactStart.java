@@ -53,7 +53,7 @@ public class ContactStart {
                     }
                 }
                 case "3" -> {
-                    final Contact contact = service.editeContact(contacts);
+                    final Contact contact = service.editContact(contacts);
                     if (contact != null) {
                         System.out.println("Contact is edited");
                     } else {

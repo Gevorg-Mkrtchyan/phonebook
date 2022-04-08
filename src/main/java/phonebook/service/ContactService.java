@@ -15,7 +15,7 @@ public interface ContactService {
 
     boolean deleteContactByFirstAndLastNames(Set<Contact> contacts);
 
-    Contact editeContact(Set<Contact> contacts);
+    Contact editContact(Set<Contact> contacts);
 
     void getAllContacts(Set<Contact> contacts);
 
